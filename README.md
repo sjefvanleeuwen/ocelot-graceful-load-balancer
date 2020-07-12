@@ -2,7 +2,7 @@
 [![nuget](https://img.shields.io/nuget/v/Ocelot.GracefulLoadBalancer)](https://www.nuget.org/packages/Ocelot.GracefulLoadBalancer/)
 ## What is it?
 
-A Provider for Ocelot which provides a Round Robin Loadbalancer with API Nodes Health Checking.
+A Provider for Ocelot which provides a Round Robin Load Balancer with API Nodes Health Checking.
 
 ## Status
 
