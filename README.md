@@ -6,7 +6,7 @@ A Provider for Ocelot which provides a Round Robin Load Balancer with API Nodes 
 
 ## Status
 
-The provider is in alpha stage but should be usable. It hase been tested as part of my cluster setup.
+The provider is in alpha stage but should be usable. It has been tested as part of my cluster setup.
 
 This project is open to pull requests.
 
