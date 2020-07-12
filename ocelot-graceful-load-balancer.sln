@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Morstead.ApiGateway.Cli", "src\Morstead.ApiGateway.Cli\Morstead.ApiGateway.Cli.csproj", "{D35234D4-0C21-4B9A-9FC7-1EB80C83122A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.GracefulLoadBalancer", "src\Ocelot.GracefulLoadBalancer\Ocelot.GracefulLoadBalancer.csproj", "{B80171C7-A09E-4C00-9E1D-B59F41B73AC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D35234D4-0C21-4B9A-9FC7-1EB80C83122A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35234D4-0C21-4B9A-9FC7-1EB80C83122A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35234D4-0C21-4B9A-9FC7-1EB80C83122A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35234D4-0C21-4B9A-9FC7-1EB80C83122A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B80171C7-A09E-4C00-9E1D-B59F41B73AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B80171C7-A09E-4C00-9E1D-B59F41B73AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B80171C7-A09E-4C00-9E1D-B59F41B73AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B80171C7-A09E-4C00-9E1D-B59F41B73AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E31F7EBE-1385-4980-9EF2-16D8425EA611}
+	EndGlobalSection
+EndGlobal
