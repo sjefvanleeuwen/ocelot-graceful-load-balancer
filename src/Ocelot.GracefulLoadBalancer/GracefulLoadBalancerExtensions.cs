@@ -11,22 +11,19 @@ namespace Ocelot.DependencyInjection
     {
         public static IOcelotBuilder AddGracefullLoadBalancer(this IOcelotBuilder builder)
         {
-            GracefulLoadBalancer balancer = null;
             GracefulLoadBalancerDelegatingHandler delegatingHandler = null;
             builder.Services.AddTransient<GracefulLoadBalancerDelegatingHandler>();
-            // Make this handler global.
             builder.Services.AddTransient(s =>
             {
                 delegatingHandler = s.GetService<GracefulLoadBalancerDelegatingHandler>();
-                delegatingHandler.balancer = balancer;
+                // Make this handler global.
                 return new GlobalDelegatingHandler(delegatingHandler);
             });
 
             Func<IServiceProvider, DownstreamRoute, IServiceDiscoveryProvider, GracefulLoadBalancer> loadBalancerFactoryFunc
-                = (serviceProvider, Route, serviceDiscoveryProvider) =>
+                = (serviceProvider, route, serviceDiscoveryProvider) =>
                 {
-                    balancer = new GracefulLoadBalancer(delegatingHandler, serviceDiscoveryProvider.Get);
-                    return balancer;
+                    return new GracefulLoadBalancer(serviceProvider, route, serviceDiscoveryProvider.Get);
                 };
 
             builder.AddCustomLoadBalancer(loadBalancerFactoryFunc);

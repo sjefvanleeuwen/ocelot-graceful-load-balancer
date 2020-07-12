@@ -8,10 +8,10 @@ namespace Ocelot.LoadBalancer.LoadBalancers
 {
     public class GracefulLoadBalancerDelegatingHandler : DelegatingHandler
     {
-        internal GracefulLoadBalancer balancer { get; set; }
-
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            //0HM16GD04N15H
+            //Console.WriteLine("delegate:" + balancer._last);
             //request.RequestUri = new Uri("http://192.168.178.90:8800/api/landelijke_tabellen/tabellen/1/waarden");
             HttpResponseMessage response = null;
             try
@@ -24,6 +24,8 @@ namespace Ocelot.LoadBalancer.LoadBalancers
                 try
                 {
                     Console.WriteLine("Marking as bad: " + request.RequestUri.Host);
+                    var balancer = await GracefulLoadBalancer.GetBalancer(request);
+
                     await balancer.MarkAsBad(new ServiceHostAndPort(request.RequestUri.Host,request.RequestUri.Port,request.RequestUri.Scheme));
                     // Get a new lease from the balancer
                     var s = await balancer.Lease(null); /* No Http Context needed for the balancer */

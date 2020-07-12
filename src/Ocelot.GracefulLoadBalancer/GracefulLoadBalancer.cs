@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Ocelot.Configuration;
 using Ocelot.Responses;
 using Ocelot.Values;
 using System;
@@ -12,16 +14,23 @@ namespace Ocelot.LoadBalancer.LoadBalancers
 {
     public class GracefulLoadBalancer : ILoadBalancer
     {
-        public static Func<Task<List<Service>>> _services;
+        private readonly IServiceProvider service;
+        internal readonly DownstreamRoute route;
+        private Func<Task<List<Service>>> _services;
 
         private readonly object _lock = new object();
         private Dictionary<int, Service> _failings;
         private Timer t;
 
-        private int _last;
-        public GracefulLoadBalancer(GracefulLoadBalancerDelegatingHandler handler, Func<Task<List<Service>>> services)
+        internal int _last;
+        public GracefulLoadBalancer(IServiceProvider service, DownstreamRoute route, Func<Task<List<Service>>> services)
         {
+            this.service = service;
+            this.route = route;
+            route.AddHeadersToDownstream.Add(new Configuration.Creator.AddHeader("balancer", route.LoadBalancerKey));
+            route.AddHeadersToUpstream.Add(new Configuration.Creator.AddHeader("balancer", route.LoadBalancerKey));
             _services = services;
+            _balancers.Add(this);
         }
 
         private void Poll(object state)
@@ -68,6 +77,19 @@ namespace Ocelot.LoadBalancer.LoadBalancers
 
         private static HttpClient Client = new HttpClient();
 
+        private static List<GracefulLoadBalancer> _balancers = new List<GracefulLoadBalancer>();
+
+        public static async Task<GracefulLoadBalancer> GetBalancer(HttpRequestMessage message)
+        {
+            foreach (var balancer in _balancers)
+            {
+                var match = string.Concat(balancer.route.DownstreamPathTemplate.Value.TakeWhile((c) => c != '{'));
+                if (message.RequestUri.PathAndQuery.StartsWith(match))
+                    return balancer;
+            }
+            return null;
+        }
+
         public async Task<Response<ServiceHostAndPort>> Lease(HttpContext httpContext)
         {
             var services = await _services();
@@ -100,6 +122,7 @@ namespace Ocelot.LoadBalancer.LoadBalancers
                         _last = 0;
                     }
                 }
+                //Console.WriteLine(this.route.LoadBalancerKey + " " + _last);
                 var next = services[_last];
 
                 var response = new OkResponse<ServiceHostAndPort>(next.HostAndPort);
