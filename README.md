@@ -52,7 +52,7 @@ The `LoadBalancer` options simply point to the implementation. You can add the l
 
 ```csharp
 builder.ConfigureServices(s => {
-    s.AddOcelot().AddGracefullLoadBalancer();
+    s.AddOcelot().AddGracefulLoadBalancer();
 })
 ```
 
