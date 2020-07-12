@@ -17,7 +17,7 @@ The setup is comparable to other Ocelot providers. Its target framework is netco
 ### Install nuget package
 
 ```
-dotnet add package Ocelot.GracefulLoadBalancer --version 0.0.1-alpha
+dotnet add package Ocelot.GracefulLoadBalancer --version 0.0.2-alpha
 ```
 or visit the nuget for other options on: https://www.nuget.org/packages/Ocelot.GraceFulLoadBalancer
 
