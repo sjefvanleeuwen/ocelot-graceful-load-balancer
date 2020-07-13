@@ -1,5 +1,6 @@
 # Ocelot Graceful Load Balancer
 [![nuget](https://img.shields.io/nuget/v/Ocelot.GracefulLoadBalancer)](https://www.nuget.org/packages/Ocelot.GracefulLoadBalancer/)
+![.NET Core](https://github.com/sjefvanleeuwen/ocelot-graceful-load-balancer/workflows/.NET%20Core/badge.svg)
 ## What is it?
 
 A Provider for Ocelot which provides a Round Robin Load Balancer with API Nodes Health Checking.
