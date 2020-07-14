@@ -24,7 +24,7 @@ or visit the nuget for other options on: https://www.nuget.org/packages/Ocelot.G
 
 ### Adding the provider to your project
 
-The following shows my configuration on the cluster for a 3 Node API Endpoint setup on the balancer 
+The following a typical configuration on the cluster for a 3 Node API Endpoint setup on the balancer 
 and should be easily adaptable to your own settings. I assume you already have basic knowledge of Ocelot.
 Note! That I am using the YAML Configuration provider from NetEscapedes in the sample project instead of
 configuring via JSON. If you prefer JSON it should be easy to convert it manually or with a YAML to JSON converter.
@@ -33,7 +33,7 @@ Consider the following configuration:
 
 ```YAML
 Routes:
-- DownstreamPathTemplate: "/api/{everything}"
+- DownstreamPathTemplate: "/api/auth/{everything}"
   DownstreamScheme: http
   DownstreamHostAndPorts:
   - Host: 192.168.178.88
@@ -44,7 +44,7 @@ Routes:
     Port: 8800
   LoadBalancerOptions:
     Type: GracefulLoadBalancer
-  UpstreamPathTemplate: "/brp/landen/{everything}"
+  UpstreamPathTemplate: "/api/auth/{everything}"
   UpstreamHttpMethod:
   - Get
 ```
